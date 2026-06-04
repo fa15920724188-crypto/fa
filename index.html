@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>地毯AI智能销售资料库</title>
+    <link rel="stylesheet" href="/styles.css?v=kb2" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="login-panel" id="loginPanel">
+        <div class="brand-block">
+          <div class="brand-mark">AI</div>
+          <div>
+            <h1>地毯AI智能销售资料库</h1>
+            <p>Carpet AI Sales Knowledge Base</p>
+          </div>
+        </div>
+        <form id="loginForm" class="login-form">
+          <label>
+            账号 / Username
+            <input id="username" autocomplete="username" value="admin" />
+          </label>
+          <label>
+            密码 / Password
+            <input id="password" type="password" autocomplete="current-password" value="admin123" />
+          </label>
+          <button type="submit">登录 / Sign in</button>
+          <p class="hint">默认测试账号：admin / admin123。正式给员工使用前请改密码。</p>
+          <p class="error" id="loginError"></p>
+        </form>
+      </section>
+
+      <section class="app-panel hidden" id="appPanel">
+        <header class="app-header">
+          <div>
+            <h1>地毯AI智能销售资料库</h1>
+            <p>员工可以查产品知识、客户画像、销售话术、SOP，也可以直接问 AI。</p>
+            <p class="mode-note" id="modeNote">正在检查 AI 模式...</p>
+          </div>
+          <div class="user-box">
+            <span id="userName">-</span>
+            <button class="ghost" id="logoutBtn">退出</button>
+          </div>
+        </header>
+
+        <section class="key-panel" id="keyPanel">
+          <div>
+            <strong>接入 DeepSeek</strong>
+            <p>粘贴 DeepSeek API Key 后，当前页面会变成真正 AI 模式。Key 仅保存在本机浏览器，用于临时测试。</p>
+          </div>
+          <div class="key-row">
+            <input id="deepseekKey" type="password" placeholder="sk-..." autocomplete="off" />
+            <button id="saveKeyBtn" type="button">接入</button>
+            <button class="ghost" id="removeKeyBtn" type="button">移除</button>
+          </div>
+          <p class="key-status" id="keyStatus"></p>
+        </section>
+
+        <nav class="module-tabs" aria-label="资料库模块">
+          <button class="tab active" data-view="ask">AI问答</button>
+          <button class="tab" data-view="library">销售资料库</button>
+          <button class="tab" data-view="playbook">场景话术</button>
+          <button class="tab" data-view="sop">销售SOP</button>
+        </nav>
+
+        <section class="view view-ask" id="view-ask">
+          <div class="ask-grid">
+            <div class="ask-card">
+              <div class="quick-row">
+                <button data-example="Please send me your General Catalogue along with your Very Best Export prices">目录和出口价</button>
+                <button data-example="Can I get samples for my villa project?">设计师样品</button>
+                <button data-example="I need rugs for a hotel lobby and guest rooms. Can you customize?">酒店项目</button>
+                <button data-example="Why should I buy from you instead of Turkish rugs?">土耳其对比</button>
+              </div>
+              <label for="message">客户原话 / Customer Message</label>
+              <textarea id="message" placeholder="粘贴客户的问题，例如：Can I get samples? What is your lead time?"></textarea>
+              <div class="actions">
+                <button id="coachBtn">生成销售回复 / Generate</button>
+                <button class="ghost" id="clearBtn">清空</button>
+              </div>
+            </div>
+
+            <aside class="tips">
+              <h2>AI回答目标</h2>
+              <p>先判断客户是谁，再给中英文可复制话术，并推进到展厅、视频选品、样品确认或工厂报价。</p>
+              <h2>价格原则</h2>
+              <p>AI 不给最终报价。范围价格只做初步参考，最终价格交给工厂确认。</p>
+              <h2>当前重点</h2>
+              <p>你的优势不是产地标签，而是现货多、一件可出、定制灵活、线下展厅成交率高。</p>
+            </aside>
+          </div>
+
+          <section class="result-card">
+            <div class="result-head">
+              <h2>AI输出</h2>
+              <span id="modeBadge">Ready</span>
+            </div>
+            <pre id="result">等待输入客户问题。</pre>
+          </section>
+        </section>
+
+        <section class="view hidden" id="view-library">
+          <div class="library-layout">
+            <aside class="library-sidebar">
+              <label for="searchBox">搜索资料 / Search</label>
+              <input id="searchBox" placeholder="输入关键词：样品、MOQ、酒店、土耳其、现货..." />
+              <div class="category-list" id="categoryList"></div>
+            </aside>
+            <div class="library-main">
+              <div class="library-head">
+                <h2 id="libraryTitle">销售资料库</h2>
+                <span id="libraryCount">0 条</span>
+              </div>
+              <div class="knowledge-list" id="knowledgeList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="view-playbook">
+          <div class="cards-grid" id="playbookCards"></div>
+        </section>
+
+        <section class="view hidden" id="view-sop">
+          <div class="sop-list" id="sopList"></div>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js?v=kb2"></script>
+  </body>
+</html>
